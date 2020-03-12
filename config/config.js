@@ -84,81 +84,136 @@ export default {
   // umi routes: https://umijs.org/zh/guide/router.html
   routes: [
     {
-      path:'/user',
-      component:'../pages/user/Register',
-      //Register page route
-     routes:[
-       {
-         name:'Register',
-         path:'/user/Register',
-         component:'./user/Register',
-       },
-     ], 
-    },
-    {
-      path: '/user',
-      component: '../layouts/UserLayout',
-      routes: [
-        {
-          name: 'login',
-          path: '/user/login',
-          component: './user/login',
-        },
-      ],
-    },
-    {
       path: '/',
-      component: '../layouts/SecurityLayout',
+      component: '../layouts/BlankLayout',
       routes: [
+          {
+            path:'/user',
+            component:'../pages/user/register/index.jsx',
+            //Register page route
+           routes:[
+             {
+               name:'index',
+               path:'/user/register/index',
+               component:'./user/register/index',
+             },
+           ], 
+          },
         {
-          path: '/',
-          component: '../layouts/BasicLayout',
-          authority: ['admin', 'user'],
+          path: '/user',
+          component: '../layouts/UserLayout',
           routes: [
             {
-              path: '/',
-              redirect: '/welcome',
+              path: '/user',
+              redirect: '/user/login',
             },
             {
-              path: '/welcome',
-              name: 'welcome',
+              name: 'login',
               icon: 'smile',
-              component: './Welcome',
+              path: '/user/login',
+              component: './user/login',
             },
             {
-              path: '/admin',
-              name: 'admin',
-              icon: 'crown',
-              component: './Admin',
-              authority: ['admin'],
-              routes: [
-                {
-                  path: '/admin/sub-page',
-                  name: 'sub-page',
-                  icon: 'smile',
-                  component: './Welcome',
-                  authority: ['admin'],
-                },
-              ],
+              name: 'register-result',
+              icon: 'smile',
+              path: '/user/register-result',
+              component: './user/register-result',
             },
             {
-              name: 'list.table-list',
-              icon: 'table',
-              path: '/list',
-              component: './ListTableList',
+              name: 'register',
+              icon: 'smile',
+              path: '/user/register',
+              component: './user/register',
             },
             {
-              component: './404',
+              component: '404',
             },
           ],
         },
         {
-          component: './404',
+          path: '/',
+          component: '../layouts/BasicLayout',
+          Routes: ['src/pages/Authorized'],
+          authority: ['admin', 'user'],
+          routes: [
+            {
+              path: '/dashboard',
+              name: 'dashboard',
+              icon: 'dashboard',
+              routes: [
+                {
+                  name: 'analysis',
+                  icon: 'smile',
+                  path: '/dashboard/analysis',
+                  component: './dashboard/analysis',
+                },
+              ],
+            },
+            {
+              path: '/form',
+              icon: 'form',
+              name: 'form',
+              routes: [],
+            },
+            {
+              path: '/list',
+              icon: 'table',
+              name: 'list',
+              routes: [
+                {
+                  path: '/list/search',
+                  name: 'search-list',
+                  component: './list/search',
+                  routes: [
+                    {
+                      path: '/list/search',
+                      redirect: '/list/search/articles',
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              path: '/profile',
+              name: 'profile',
+              icon: 'profile',
+              routes: [],
+            },
+            {
+              name: 'result',
+              icon: 'CheckCircleOutlined',
+              path: '/result',
+              routes: [],
+            },
+            {
+              name: 'exception',
+              icon: 'warning',
+              path: '/exception',
+              routes: [],
+            },
+            {
+              name: 'account',
+              icon: 'user',
+              path: '/account',
+              routes: [],
+            },
+            {
+              name: 'editor',
+              icon: 'highlight',
+              path: '/editor',
+              routes: [],
+            },
+            {
+              path: '/',
+              redirect: '/dashboard/analysis',
+              authority: ['admin', 'user'],
+            },
+            {
+              component: '404',
+            },
+          ],
         },
       ],
-    },
-    {
-      component: './404',
     },
   ],
   // Theme for antd: https://ant.design/docs/react/customize-theme-cn

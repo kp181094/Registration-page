@@ -1,10 +1,10 @@
 import { Button, Col, Input, Row, Form, message } from 'antd';
 import React, { useState, useCallback, useEffect } from 'react';
 import omit from 'omit.js';
-import { getFakeCaptcha } from '@/services/login';
 import ItemMap from './map';
 import LoginContext from './LoginContext';
 import styles from './index.less';
+import { getFakeCaptcha } from '../../service';
 
 const FormItem = Form.Item;
 
@@ -83,7 +83,7 @@ const LoginItem = props => {
   if (type === 'Captcha') {
     const inputProps = omit(otherProps, ['onGetCaptcha', 'countDown']);
     return (
-      <FormItem shouldUpdate noStyle>
+      <FormItem shouldUpdate>
         {({ getFieldValue }) => (
           <Row gutter={8}>
             <Col span={16}>
